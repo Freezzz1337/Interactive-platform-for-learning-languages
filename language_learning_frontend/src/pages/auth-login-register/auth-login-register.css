@@ -6,6 +6,12 @@
     height: 100vh;
 }
 
+/*.registration-bg {*/
+/*    background: linear-gradient(to bottom, #A0D2EB, #E5EAF5, #D0BDF4, #845BB3, #494D5F);*/
+/*    background-blend-mode: overlay;*/
+/*    height: 100vh;*/
+/*    margin: 0;*/
+/*}*/
 .registration-bg::before {
     content: '';
     position: absolute;
@@ -27,4 +33,9 @@
     overflow: hidden;
     z-index: 2;
     height: 75%;
+}
+
+.validation-message {
+    min-height: 20px;
+    font-size: 15px;
 }

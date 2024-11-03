@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {convertFileToBase64} from "../util/convertFileToBase64";
+import {convertFileToBase64} from "../util/convert-file-to-base64";
 
 const useFormValidation = (initialState, validate) => {
     const [formData, setFormData] = useState(initialState);

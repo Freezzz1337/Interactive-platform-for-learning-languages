@@ -1,11 +1,11 @@
 import './app.css';
 import {Route, Routes} from "react-router-dom";
-import Registration from "./pages/registration";
+import AuthLoginRegister from "./pages/auth-login-register";
 
 const App = () => {
     return (
         <Routes>
-            <Route path="/registration" element={<Registration/>}/>
+            <Route path="/registration" element={<AuthLoginRegister/>}/>
         </Routes>
     );
 }
