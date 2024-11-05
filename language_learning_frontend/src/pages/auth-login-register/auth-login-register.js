@@ -9,22 +9,21 @@ import Spinner from "../../components/spinner";
 import RegistrationForm from "../../components/forms/registration-form/registration-form";
 import AuthorizationForm from "../../components/forms/authorization-form";
 import ButtonAnim from "../../components/button-anim";
+import {useLocation} from "react-router-dom";
+import ButtonGoBack from "../../components/button-go-back";
 
 const AuthLoginRegister = () => {
     const formRef = useRef(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [isAuthenticatedPage, setIsAuthenticatedPage] = useState(true);
+    const location = useLocation();
+    const [isAuthenticatedPage, setIsAuthenticatedPage] = useState(location.state.isAuthenticatedPage ? location.state.isAuthenticatedPage : false);
     const {
         formData,
         validErrors,
         handleChange,
         handleValidation
     } = useFormValidation({}, isAuthenticatedPage ? authorizationValidation : registrationValidation);
-
-    useEffect(() => {
-
-    }, [isAuthenticatedPage]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -60,6 +59,8 @@ const AuthLoginRegister = () => {
 
     return (
         <Container fluid className="registration-bg d-flex justify-content-center align-items-center">
+
+            <ButtonGoBack left="50px" top="50px"/>
 
             {error && <ErrorAlert error={error} setError={setError}/>}
 
