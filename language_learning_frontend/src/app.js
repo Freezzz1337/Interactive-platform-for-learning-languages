@@ -1,7 +1,7 @@
 import './app.css';
 import {Route, Routes} from "react-router-dom";
 import AuthLoginRegister from "./pages/auth-login-register";
-import HomePage from "./pages/home-page";
+import HomePage from "./pages/start-page";
 
 const App = () => {
     return (

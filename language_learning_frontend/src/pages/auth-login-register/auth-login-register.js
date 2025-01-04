@@ -1,6 +1,6 @@
 import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
 import "./auth-login-register.css"
-import {useEffect, useRef, useState} from "react";
+import {useRef, useState} from "react";
 import {authenticate, register} from "../../services/auth-service";
 import {authorizationValidation, registrationValidation} from "../../util/validation/auth-login-register-validation";
 import ErrorAlert from "../../components/alerts";
@@ -17,17 +17,21 @@ const AuthLoginRegister = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const location = useLocation();
-    const [isAuthenticatedPage, setIsAuthenticatedPage] = useState(location.state.isAuthenticatedPage ? location.state.isAuthenticatedPage : false);
+
+    const [isAuthenticatedPage, setIsAuthenticatedPage] = useState(
+        location.state?.isAuthenticatedPage || false
+    );
     const {
         formData,
         validErrors,
         handleChange,
         handleValidation
-    } = useFormValidation({}, isAuthenticatedPage ? authorizationValidation : registrationValidation);
+    } = useFormValidation({}, isAuthenticatedPage ? registrationValidation : authorizationValidation);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const isValid = handleValidation();
+        console.log(isValid);
         if (isValid) {
             setLoading(true);
             try {
@@ -40,6 +44,8 @@ const AuthLoginRegister = () => {
                     }
                     console.log(serverResponse)
                 } else if (!isAuthenticatedPage) {
+                    console.log("!!!!!!!!!!!!!");
+
                     serverResponse = await register(JSON.stringify(formData));
                     if (serverResponse.response) {
                         setIsAuthenticatedPage(!isAuthenticatedPage);
@@ -91,7 +97,9 @@ const AuthLoginRegister = () => {
                                         className="w-75 col-12 col-md-6 col-lg-4"
                                         height={"46px"}
                                         disabled={loading}
-                                        buttonText={isAuthenticatedPage ? "Log in" : "Register"}/>
+                                        buttonText={isAuthenticatedPage ? "Log in" : "Register"}
+                                        type={"submit"}
+                                    />
                                 </div>
 
                                 <p className="text-center text-muted mt-2 mt-xl-4 mb-0">
@@ -102,8 +110,7 @@ const AuthLoginRegister = () => {
                                             setIsAuthenticatedPage(!isAuthenticatedPage)
                                         }}
                                         className="fw-bold p-0 mb-1"
-                                        style={{color: "#845BB3"}}
-                                    >
+                                        style={{color: "#845BB3"}}>
                                         <u>{isAuthenticatedPage ? "Sing up " : "Log in"}</u>
                                     </Button></p>
 

@@ -17,6 +17,7 @@ const useFormValidation = (initialState, validate) => {
 
     const handleValidation = () => {
         const errors = validate(formData);
+        console.log(errors);
         setValidErrors(errors);
         return Object.keys(errors).length === 0;
     }

@@ -1,4 +1,4 @@
-const authorizationValidation = (formData) => {
+const   authorizationValidation = (formData) => {
     const errors = {};
 
     if (!formData.username) {

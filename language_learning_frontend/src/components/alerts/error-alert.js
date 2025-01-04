@@ -10,7 +10,7 @@ const ErrorAlert = ({error,setError}) => {
     }
 
     return (
-        <ToastContainer position="top-center" className="p-3 ">
+        <ToastContainer position="top-center" className="p-3">
             <Toast
                 show={showToast}
                 onClose={handleClose}

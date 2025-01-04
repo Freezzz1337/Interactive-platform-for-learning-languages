@@ -32,7 +32,6 @@ public class AuthenticationController {
         authenticationService.signup(registerDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(new RegisterResponseDto());
     }
-
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDto> authenticate(@RequestBody LoginDto loginDto) {
         User authenticatedUser = authenticationService.authenticate(loginDto);
