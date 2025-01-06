@@ -1,6 +1,6 @@
 import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
 import "./auth-login-register.css"
-import {useRef, useState} from "react";
+import {useContext, useRef, useState} from "react";
 import {authenticate, register} from "../../services/auth-service";
 import {authorizationValidation, registrationValidation} from "../../util/validation/auth-login-register-validation";
 import ErrorAlert from "../../components/alerts";
@@ -9,14 +9,18 @@ import Spinner from "../../components/spinner";
 import RegistrationForm from "../../components/forms/registration-form/registration-form";
 import AuthorizationForm from "../../components/forms/authorization-form";
 import ButtonAnim from "../../components/button-anim";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import ButtonGoBack from "../../components/button-go-back";
+import AuthContext from "../../context/auth-context";
+
 
 const AuthLoginRegister = () => {
     const formRef = useRef(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const location = useLocation();
+    const {login, logout} = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const [isAuthenticatedPage, setIsAuthenticatedPage] = useState(
         location.state?.isAuthenticatedPage || false
@@ -31,7 +35,6 @@ const AuthLoginRegister = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const isValid = handleValidation();
-        console.log(isValid);
         if (isValid) {
             setLoading(true);
             try {
@@ -42,10 +45,9 @@ const AuthLoginRegister = () => {
                     if (!serverResponse.response) {
                         setError(serverResponse.description);
                     }
-                    console.log(serverResponse)
+                    login(serverResponse);
+                    navigate("/home");
                 } else if (!isAuthenticatedPage) {
-                    console.log("!!!!!!!!!!!!!");
-
                     serverResponse = await register(JSON.stringify(formData));
                     if (serverResponse.response) {
                         setIsAuthenticatedPage(!isAuthenticatedPage);

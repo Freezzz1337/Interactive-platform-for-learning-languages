@@ -6,16 +6,16 @@ import FeaturesCarousel from "../../components/features-carousel";
 import "./start-page.css";
 import {useNavigate} from "react-router-dom";
 
-const HomePage = () => {
+const StartPage = () => {
     const navigation = useNavigate();
     const handleLogIn = (e) => {
         e.preventDefault();
-        navigation("/auth", {state: {isAuthenticatedPage: true}})
+        navigation("/useAuth", {state: {isAuthenticatedPage: true}})
     }
 
     const handleRegister = (e) => {
         e.preventDefault();
-        navigation("/auth", {state: {isAuthenticatedPage: false}})
+        navigation("/useAuth", {state: {isAuthenticatedPage: false}})
     }
     return (
         <>
@@ -54,4 +54,4 @@ const HomePage = () => {
         </>
     )
 }
-export default HomePage;
+export default StartPage;
