@@ -5,23 +5,23 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const {saveToken, getToken, isTokenExpired, removeToken} = useAuth();
+    const {saveToken, getToken, removeToken} = useAuth();
 
     const [userType, setUserType] = useState(null);
 
     useEffect(() => {
         const token = getToken();
-        if (token && !isTokenExpired()) {
+        if (token) {
             setIsAuthenticated(true);
         } else {
             setIsAuthenticated(false);
             removeToken();
         }
-    }, [getToken, isTokenExpired, removeToken]);
+    }, [getToken, removeToken]);
 
     const login = (serverResponse) => {
-        const {token, expiresIn, userType} = serverResponse;
 
+        const {token, expiresIn, userType} = serverResponse;
         saveToken(token, expiresIn);
         setIsAuthenticated(true);
         setUserType(userType);

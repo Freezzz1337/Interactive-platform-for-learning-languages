@@ -19,7 +19,7 @@ const AuthLoginRegister = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const location = useLocation();
-    const {login, logout} = useContext(AuthContext);
+    const {login} = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [isAuthenticatedPage, setIsAuthenticatedPage] = useState(

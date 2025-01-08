@@ -4,21 +4,12 @@ const TOKEN_KEY = "jwtToken";
 const useAuth = () => {
 
     const saveToken = (token, expirationTime) => {
-        const expirationDate = new Date(expirationTime);
-        Cookies.set(TOKEN_KEY, token, {expires: expirationDate});
+        const days = expirationTime / (24 * 60 * 60 * 1000);
+        Cookies.set(TOKEN_KEY, token, {expires: days});
     }
 
     const getToken = () => Cookies.get(TOKEN_KEY);
 
-    const isTokenExpired = () => {
-        const token = getToken();
-        if (!token) return true;
-
-        const expirationTime = Cookies.getJSON(`${TOKEN_KEY}_expiration`);
-        if (!expirationTime) return true;
-
-        return new Date() > new Date(expirationTime);
-    }
 
     const removeToken = () => {
         Cookies.remove(TOKEN_KEY);
@@ -27,7 +18,6 @@ const useAuth = () => {
     return {
         saveToken,
         getToken,
-        isTokenExpired,
         removeToken
     };
 };
