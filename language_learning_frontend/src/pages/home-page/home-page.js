@@ -9,13 +9,10 @@ const HomePage = () => {
 
     return (
         <>
-            <Header/>
-
             <Container>
                 <h2>Latest</h2>
                 <h2>Popular flashcard sets</h2>
             </Container>
-            <Footer/>
         </>
     );
 }
