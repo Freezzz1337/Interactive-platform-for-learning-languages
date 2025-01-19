@@ -77,11 +77,11 @@ const AuthLoginRegister = () => {
                     <img
                         src={require('../../assets/img/registration-form1.jpg')}
                         alt="AuthLoginRegister"
-                        className="registration-form-img "
+                        className="registration-form-img"
                     />
                 </Col>
                 <Col xl={6}>
-                    <Card className="border-0 h-100 rounded-0 border-start ">
+                    <Card className="border-0 h-100 rounded-0 border-start">
                         <Card.Body>
                             <h2 className="text-uppercase text-center">{isAuthenticatedPage ? 'Log in' : 'Registration'}</h2>
                             <hr/>

@@ -14,6 +14,7 @@ const App = () => {
     const location = useLocation();
     const hideHeaderAndFooter = "/useAuth".includes(location.pathname);
 
+
     return (
         <>
             {!hideHeaderAndFooter && <Header/>}

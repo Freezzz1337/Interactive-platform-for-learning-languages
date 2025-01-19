@@ -3,7 +3,7 @@ import "./footer.css";
 const Footer = () => {
 
     return (
-        <footer className="footer mt-auto py-3 bg-light border-top">
+        <footer   className="footer mt-auto py-3 border-top">
             <Container>
                 <p className="float-end mb-1">
                     <a href="#">GO top</a>

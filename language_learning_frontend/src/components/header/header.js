@@ -39,7 +39,7 @@ const Header = () => {
     }
 
     return (
-        <Navbar expand="lg" className="bg-body-tertiary border-bottom">
+        <Navbar expand="lg" style={{backgroundColor:"#fbf6ef"}} className=" border-bottom">
             <Container fluid>
                 <Navbar.Brand href="#">Wordly</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll"/>
