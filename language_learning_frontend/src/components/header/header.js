@@ -82,35 +82,3 @@ const Header = () => {
     );
 }
 export default Header;
-
-
-{/*<Form className="d-flex me-2">*/
-}
-{/*    <InputGroup>*/
-}
-{/*        <Form.Control*/
-}
-{/*            type="search"*/
-}
-{/*            placeholder="Search"*/
-}
-{/*            aria-label="Search"*/
-}
-{/*            className="bg-white border rounded-pill shadow"*/
-}
-{/*            style={{width: "250px"}}*/
-}
-{/*        />*/
-}
-{/*        <Button variant="outline-success"*/
-}
-{/*                className="bg-white border rounded-pill shadow">*/
-}
-{/*            <BiSearch/>*/
-}
-{/*        </Button>*/
-}
-{/*    </InputGroup>*/
-}
-{/*</Form>*/
-}

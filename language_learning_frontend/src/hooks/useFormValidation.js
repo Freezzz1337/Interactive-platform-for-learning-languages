@@ -4,20 +4,33 @@ import {convertFileToBase64} from "../util/convert-file-to-base64";
 const useFormValidation = (initialState, validate) => {
     const [formData, setFormData] = useState(initialState);
     const [validErrors, setValidErrors] = useState({});
-
     const handleChange = (e) => {
-        if (e.target.type === "file") {
+        const {type, name, dataset, value} = e.target;
+
+        if (dataset.type === "word") {
+            const index = Number(dataset.index);
+            setFormData((prevData) =>{
+                const updatedWords = [...(prevData.words || [])];
+                updatedWords[index] = {
+                    ...updatedWords[index],
+                    [name]:value,
+                };
+                return {...prevData, words: updatedWords};
+            });
+        }else if (type === "file") {
             convertFileToBase64(e.target.files[0], (base64String) => {
-                setFormData({...formData, [e.target.name]: base64String});
+                setFormData({...formData, [name]: base64String});
             });
         } else {
-            setFormData({...formData, [e.target.name]: e.target.value});
+            setFormData({...formData, [name]: value});
         }
-        console.log(formData);
     }
 
     const handleValidation = () => {
         const errors = validate(formData);
+        if (!errors){
+            return false;
+        }
         console.log(errors);
         setValidErrors(errors);
         return Object.keys(errors).length === 0;
@@ -25,9 +38,10 @@ const useFormValidation = (initialState, validate) => {
 
     return {
         formData,
+        setFormData,
         validErrors,
         handleChange,
-        handleValidation
+        handleValidation,
     };
 };
 export default useFormValidation;
