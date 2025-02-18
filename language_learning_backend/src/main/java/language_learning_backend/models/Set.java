@@ -1,10 +1,7 @@
 package language_learning_backend.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
@@ -15,6 +12,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Table(name = "create_set")
 public class Set {
     @Id
@@ -32,11 +30,14 @@ public class Set {
     private boolean isVisible;
 
     @CreationTimestamp
-    @Column(name = "create_at")
-    private Timestamp createAt;
+    @Column(name = "created_at")
+    private Timestamp createdAt;
 
     @Column(name = "update_at")
     private Timestamp updateAt;
+
+    @Column(name = "folder_id")
+    private Long folderId;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "set_id")

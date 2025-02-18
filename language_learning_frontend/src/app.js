@@ -1,13 +1,14 @@
 import './app.css';
 import {Route, Routes, useLocation} from "react-router-dom";
-import AuthLoginRegister from "./pages/auth-login-register";
+import AuthLoginRegisterPage from "./pages/auth-login-register-page";
 import StartPage from "./pages/start-page";
 import HomePage from "./pages/home-page";
 import {useContext} from "react";
 import AuthContext from "./context/auth-context";
-import CreateSet from "./pages/create-set";
+import CreateSetPage from "./pages/create-set-page";
 import Header from "./components/header";
 import Footer from "./components/footer";
+import SetPage from "./pages/set-page";
 
 const App = () => {
     const {isAuthenticated} = useContext(AuthContext);
@@ -23,11 +24,12 @@ const App = () => {
                     <>
                         <Route path="/home" element={<HomePage/>}/>
 
-                        <Route path="/createSet" element={<CreateSet/>}/>
+                        <Route path="/set/:id" element={<SetPage/>}/>
+                        <Route path="/createSet" element={<CreateSetPage/>}/>
                     </> :
                     <>
                         <Route path="/" element={<StartPage/>}/>
-                        <Route path="/useAuth" element={<AuthLoginRegister/>}/>
+                        <Route path="/useAuth" element={<AuthLoginRegisterPage/>}/>
                     </>}
                 <Route path="*" element={<><h2>Page not found</h2></>}/>
             </Routes>

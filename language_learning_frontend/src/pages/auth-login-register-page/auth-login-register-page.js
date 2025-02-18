@@ -1,5 +1,5 @@
 import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
-import "./auth-login-register.css"
+import "./auth-login-register-page.css"
 import {useContext, useRef, useState} from "react";
 import {authenticate, register} from "../../services/auth-service";
 import {authorizationValidation, registrationValidation} from "../../util/validation/auth-login-register-validation";
@@ -14,7 +14,7 @@ import ButtonGoBack from "../../components/button-go-back";
 import AuthContext from "../../context/auth-context";
 
 
-const AuthLoginRegister = () => {
+const AuthLoginRegisterPage = () => {
     const formRef = useRef(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -76,7 +76,7 @@ const AuthLoginRegister = () => {
                 <Col xl={6} className="d-none d-xl-block h-100">
                     <img
                         src={require('../../assets/img/registration-form1.jpg')}
-                        alt="AuthLoginRegister"
+                        alt="AuthLoginRegisterPage"
                         className="registration-form-img"
                     />
                 </Col>
@@ -124,4 +124,4 @@ const AuthLoginRegister = () => {
         </Container>
     );
 }
-export default AuthLoginRegister;
+export default AuthLoginRegisterPage;

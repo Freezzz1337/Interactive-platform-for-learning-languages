@@ -6,9 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CreateWordDto {
-    private String wordSource;
-    private String wordTarget;
-
-    private String sourceLang;
-    private String targetLang;
+        private String id;
+        private String wordSource;
+        private String wordTarget;
 }

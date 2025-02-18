@@ -1,10 +1,7 @@
 package language_learning_backend.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
@@ -14,6 +11,7 @@ import java.sql.Timestamp;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Table(name = "word")
 public class Word {
     @Id
@@ -27,11 +25,8 @@ public class Word {
     @Column(name = "word_target")
     private String wordTarget;
 
-    @Column(name = "source_lang")
-    private String sourceLang;
-
-    @Column(name = "target_lang")
-    private String targetLang;
+    @Column(name = "set_id")
+    private long setId;
 
     @CreationTimestamp
     @Column(name = "create_at")

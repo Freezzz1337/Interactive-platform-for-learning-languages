@@ -10,7 +10,6 @@ const useAuth = () => {
 
     const getToken = () => Cookies.get(TOKEN_KEY);
 
-
     const removeToken = () => {
         Cookies.remove(TOKEN_KEY);
     }
