@@ -42,11 +42,12 @@ const AuthLoginRegisterPage = () => {
 
                 if (isAuthenticatedPage) {
                     serverResponse = await authenticate(JSON.stringify(formData));
-                    if (!serverResponse.response) {
+                    if (serverResponse.token) {
+                        login(serverResponse);
+                        navigate("/home");
+                    } else if (!serverResponse.response) {
                         setError(serverResponse.description);
                     }
-                    login(serverResponse);
-                    navigate("/home");
                 } else if (!isAuthenticatedPage) {
                     serverResponse = await register(JSON.stringify(formData));
                     if (serverResponse.response) {

@@ -1,4 +1,4 @@
-import {Button, Col, Container, Form, Row} from "react-bootstrap";
+import {Alert, Button, Container, Form} from "react-bootstrap";
 import CreateNewWord from "../../components/create-new-word";
 import "./create-set-page.css";
 import useFormValidation from "../../hooks/useFormValidation";
@@ -46,6 +46,7 @@ const CreateSetPage = () => {
         if (isValid) {
             try {
                 const response = await createSet(JSON.stringify(formData), getToken());
+                console.log(response);
                 const {dataset} = e.target;
 
                 if (dataset.type === "create") {
@@ -123,6 +124,14 @@ const CreateSetPage = () => {
                     >Create and practice</Button>
                 </div>
             </Form>
+
+            {error &&
+                <div className="mt-3">
+                    <Alert variant="danger">
+                        {error}
+                    </Alert>
+                </div>
+            }
         </Container>
 );
 }

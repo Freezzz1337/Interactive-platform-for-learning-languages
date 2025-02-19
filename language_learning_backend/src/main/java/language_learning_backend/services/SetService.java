@@ -4,6 +4,7 @@ import language_learning_backend.dto.auth.setDto.CreateSetDto;
 import language_learning_backend.models.Set;
 import language_learning_backend.repositories.SetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,5 +34,9 @@ public class SetService {
         wordService.create(createSetDto.getWords(),newSet.getId());
 
         return newSet.getId();
+    }
+
+    public Set getSetById(Long id) {
+        return setRepository.findById(id).get();
     }
 }

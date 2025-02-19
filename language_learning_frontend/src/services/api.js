@@ -11,7 +11,17 @@ const _requestOptionsPost = (formData, token = "") => {
     }
 }
 
+const _requestOptionsGET = (token = "") => {
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    return {
+        method: "GET",
+        headers: myHeaders,
+    }
+}
+
 export {
     _api,
-    _requestOptionsPost
+    _requestOptionsPost,
+    _requestOptionsGET
 }

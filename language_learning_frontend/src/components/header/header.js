@@ -38,6 +38,7 @@ const Header = () => {
         navigation("/createFolder");
     }
 
+
     return (
         <Navbar expand="lg" style={{backgroundColor:"#fbf6ef"}} className=" border-bottom">
             <Container fluid>
@@ -47,8 +48,13 @@ const Header = () => {
                     <div className="text-center me-auto my-2 my-lg-0">
                         <Nav>
                             <Nav.Link onClick={handleHome}>Home</Nav.Link>
-                            <Nav.Link href="#action2">Link</Nav.Link>
-                            <NavDropdown title="Create" id="navbarScrollingDropdown">
+
+                            <NavDropdown title="My library">
+                                <NavDropdown.Item>Sets</NavDropdown.Item>
+                                <NavDropdown.Item>Folders</NavDropdown.Item>
+                            </NavDropdown>
+
+                            <NavDropdown title="Create" >
                                 <NavDropdown.Item onClick={handleCreateSet}>Create set</NavDropdown.Item>
                                 <NavDropdown.Item onClick={handleCreateFolder}>Create folder</NavDropdown.Item>
                                 <NavDropdown.Divider/>
