@@ -25,10 +25,7 @@ const SetPage = () => {
         }
 
         fetchData();
-        console.log(currentSet);
     }, []);
-
-
 
     return (
         <Container fluid>

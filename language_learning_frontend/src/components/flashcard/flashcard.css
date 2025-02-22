@@ -35,6 +35,7 @@
 .back {
     transform: rotateY(180deg);
 }
+
 .flashcard-container .card {
     margin: 0 !important;
     padding: 0 !important;
@@ -42,4 +43,28 @@
     height: 100% !important;
     flex: 1 !important;
     position: absolute !important;
+}
+
+.buttons-flashcard-container {
+    width: 100%;
+    height: 100%;
+}
+
+.buttons-flashcard-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    margin: 0 auto;
+}
+
+.buttons-flashcard-wrapper .buttons-center {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+
+}
+
+.buttons-flashcard-wrapper .buttons-end {
+    margin-left: auto;
 }
