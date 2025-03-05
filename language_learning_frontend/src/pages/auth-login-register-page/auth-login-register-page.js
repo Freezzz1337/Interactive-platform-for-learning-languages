@@ -93,7 +93,7 @@ const AuthLoginRegisterPage = () => {
                                                       validErrors={validErrors} className="validation-message"/>
                                     :
                                     <AuthorizationForm handleChange={handleChange} loading={loading}
-                                                       validErrors={validErrors} className="validation-message"/>}
+                                                          validErrors={validErrors} className="validation-message"/>}
 
                                 <div className="text-center mt-2 mt-sm-4">
                                     <ButtonAnim

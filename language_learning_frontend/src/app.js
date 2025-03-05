@@ -5,10 +5,11 @@ import StartPage from "./pages/start-page";
 import HomePage from "./pages/home-page";
 import {useContext} from "react";
 import AuthContext from "./context/auth-context";
-import CreateSetPage from "./pages/create-set-page";
+import CreateSetPage from "./pages/set-pages/create-set-page";
 import Header from "./components/header";
 import Footer from "./components/footer";
-import SetPage from "./pages/set-page";
+import SetDetailPage from "./pages/set-pages/set-detail-page";
+import SetPage from "./pages/set-pages/set-page";
 
 const App = () => {
     const {isAuthenticated} = useContext(AuthContext);
@@ -24,7 +25,8 @@ const App = () => {
                     <>
                         <Route path="/home" element={<HomePage/>}/>
 
-                        <Route path="/set/:id" element={<SetPage/>}/>
+                        <Route path="/sets" element={<SetPage/>}/>
+                        <Route path="/set/:id" element={<SetDetailPage/>}/>
                         <Route path="/createSet" element={<CreateSetPage/>}/>
                     </> :
                     <>

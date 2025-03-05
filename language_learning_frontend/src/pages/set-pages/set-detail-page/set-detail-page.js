@@ -1,13 +1,13 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {getSet} from "../../services/set-service";
-import useAuth from "../../hooks/useAuth";
+import {getSet} from "../../../services/set-service";
+import useAuth from "../../../hooks/useAuth";
 import {Container} from "react-bootstrap";
-import Spinner from "../../components/spinner/spinner";
-import Flashcard from "../../components/flashcard";
+import Spinner from "../../../components/spinner/spinner";
+import Flashcard from "../../../components/flashcard";
 
 
-const SetPage = () => {
+const SetDetailPage = () => {
 
     const {id} = useParams();
     const [currentSet, setCurrentSet] = useState(null);
@@ -42,4 +42,4 @@ const SetPage = () => {
             }
         </Container>)
 }
-export default SetPage;
+export default SetDetailPage;

@@ -39,6 +39,10 @@ public class Set {
     @Column(name = "folder_id")
     private Long folderId;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "set_id")
     private List<Word> wordList;

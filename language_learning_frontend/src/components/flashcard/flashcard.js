@@ -28,10 +28,6 @@ const Flashcard = ({wordList}) => {
                 [currentWordList[currentIndex], currentWordList[randomIndex]] =
                     [currentWordList[randomIndex], currentWordList[currentIndex]];
             }
-
-            console.log(currentWordList);
-
-            console.log("TEST!");
         } else {
             setCurrentWordList(wordList)
         }
@@ -69,14 +65,14 @@ const Flashcard = ({wordList}) => {
     return (
         <div className="text-center mt-5">
             {indexCurrentWord === wordList.length ? (
-                <div className="flashcard-container d-flex align-items-center justify-content-center">
+                <div  className="flashcard-container d-flex align-items-center justify-content-center">
                     <div
                         className="front card p-4 d-flex align-items-center justify-content-center text-center">
                         <h2 className="mb-3">🎉 Congratulations! 🎉</h2>
                         <p className="fs-5">You have completed all flashcards.</p>
 
                         <Button
-                            variant="primary"
+                            variant="warning"
                             className="mt-3 d-flex align-items-center"
                             onClick={handleRestart}
                         >
@@ -88,7 +84,7 @@ const Flashcard = ({wordList}) => {
             ) : (
                 <div className="flashcard-container" onClick={() => setFlipped(!flipped)}>
                     <div className={`flashcard ${flipped ? "flipped" : ""}`}>
-                        <div className="front card p-3 d-flex align-items-center justify-content-center">
+                        <div  className="front card p-3 d-flex align-items-center justify-content-center">
                             <h2>{options.swapSides ? currentWordList[indexCurrentWord].wordTarget : currentWordList[indexCurrentWord].wordSource}</h2>
                         </div>
                         <div className="back card p-3 d-flex align-items-center justify-content-center">
@@ -99,7 +95,7 @@ const Flashcard = ({wordList}) => {
             )}
 
             {indexCurrentWord === wordList.length ? null : (
-                <div className="buttons-flashcard-container mt-3 mb-3">
+                <div     className="buttons-flashcard-container mt-3 mb-3">
                     <div className="buttons-flashcard-wrapper ">
                         <div className="buttons-center">
                             <Button className="me-5 btn-lg rounded-5" variant="outline-dark"

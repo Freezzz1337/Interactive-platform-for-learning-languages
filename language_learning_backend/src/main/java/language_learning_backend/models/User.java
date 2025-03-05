@@ -51,6 +51,10 @@ public class User implements UserDetails {
     @Column(name = "update_at")
     private Timestamp updateAt;
 
+    public String getName(){
+        return username;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();

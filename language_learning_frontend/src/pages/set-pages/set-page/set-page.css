@@ -1,0 +1,11 @@
+.button-set-page-container {
+    width: 100%;
+}
+
+.button-set-page-container .btn {
+    font-size: 25px;
+    border: none;
+    color: black;
+    border-radius: 35px;
+}
+

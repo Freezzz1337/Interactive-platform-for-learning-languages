@@ -3,3 +3,16 @@ body {
     background-color: #ead7c3 !important;
     font-family: Arial, sans-serif;
 }
+
+.dropdown-menu,
+.form-control,
+.form-check-input {
+    background-color: #fbf6ef !important;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus,
+.dropdown-item:active {
+    background-color: #ead7c3 !important;
+    color: black !important;
+}

@@ -1,14 +1,14 @@
 import {Alert, Button, Container, Form} from "react-bootstrap";
-import CreateNewWord from "../../components/create-new-word";
+import CreateNewWord from "../../../components/create-new-word";
 import "./create-set-page.css";
-import useFormValidation from "../../hooks/useFormValidation";
+import useFormValidation from "../../../hooks/useFormValidation";
 import {v4 as uuidv4} from 'uuid';
-import {createWordsValidation} from "../../util/validation/create-words-validation";
+import {createWordsValidation} from "../../../util/validation/create-words-validation";
 import {useState} from "react";
-import {createSet} from "../../services/set-service";
-import useAuth from "../../hooks/useAuth";
+import {createSet} from "../../../services/set-service";
+import useAuth from "../../../hooks/useAuth";
 import {useNavigate} from "react-router-dom";
-import "../auth-login-register-page/auth-login-register-page.css"
+import "../../auth-login-register-page/auth-login-register-page.css"
 
 const CreateSetPage = () => {
     const {
@@ -46,12 +46,12 @@ const CreateSetPage = () => {
         if (isValid) {
             try {
                 const response = await createSet(JSON.stringify(formData), getToken());
-                console.log(response);
                 const {dataset} = e.target;
 
                 if (dataset.type === "create") {
                     navigate("/home");
                 } else if (dataset.type === "create-and-practice") {
+                    console.log(response);
                     navigate(`/set/${response}`);
                 }
             } catch (error) {

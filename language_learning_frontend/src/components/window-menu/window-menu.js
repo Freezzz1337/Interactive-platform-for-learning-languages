@@ -1,4 +1,4 @@
-import {Button, Col, Container, Form, Modal, Row} from "react-bootstrap";
+import {Col, Container, Form, Modal, Row} from "react-bootstrap";
 
 const WindowMenu = ({show, handleClose, options, handleOptions}) => {
 
