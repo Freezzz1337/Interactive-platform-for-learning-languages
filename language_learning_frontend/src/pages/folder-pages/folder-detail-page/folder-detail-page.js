@@ -1,4 +1,4 @@
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {Button, Col, Container, Row} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import useAuth from "../../../hooks/useAuth";
@@ -7,14 +7,14 @@ import ButtonShowMore from "../../../components/button-components/button-show-mo
 import {FiPlusCircle} from "react-icons/fi";
 import "./folder-detail-page.css";
 import WindowAddSetsToFolder from "../../../components/window-components/window-add-sets-to-folder";
+import usePagination from "../../../hooks/usePagination";
 
 const FolderDetailPage = () => {
     const {id} = useParams();
     const {getToken} = useAuth();
-    const [page, setPage] = useState(0);
-    const [size, setSize] = useState(2);
+    const {page, size, setShowMoreButton, showMoreButton, handleNextPage} = usePagination();
+
     const [sets, setSets] = useState([]);
-    const [showButton, setShowButton] = useState(true);
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
@@ -22,7 +22,7 @@ const FolderDetailPage = () => {
             const serverResponse = await getSetsByFolder(id, page, size, getToken());
             if (serverResponse) {
                 // setSets(prevSets => [...prevSets, ...serverResponse]);
-                // setShowButton(serverResponseGetSets.isLastPage); implement this one later !!!!!!!
+                // setShowMoreButton(serverResponseGetSets.isLastPage); implement this one later !!!!!!!
             }
         }
 
@@ -30,10 +30,6 @@ const FolderDetailPage = () => {
         fetchData();
     }, [id]);
 
-    const handleNextPage = (e) => {
-        e.preventDefault();
-        setPage(prevState => prevState + 1);
-    }
     const handleClose = () => {
         setShowModal(false);
     }
@@ -65,7 +61,7 @@ const FolderDetailPage = () => {
             }
 
             <WindowAddSetsToFolder show={showModal} handleClose={handleClose} />
-            <ButtonShowMore showButton={showButton} handleNextPage={handleNextPage}/>
+            <ButtonShowMore showButton={showMoreButton} handleNextPage={handleNextPage}/>
         </Container>
     );
 }

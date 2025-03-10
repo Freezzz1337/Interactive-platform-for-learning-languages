@@ -6,15 +6,15 @@ import SetPreview from "../../../components/set-preview";
 import {useNavigate} from "react-router-dom";
 import "./set-page.css";
 import ButtonShowMore from "../../../components/button-components/button-show-more";
+import usePagination from "../../../hooks/usePagination";
 
 const SetPage = () => {
     const [sets, setSets] = useState([]);
-    const [page, setPage] = useState(0);
-    const [size, setSize] = useState(2);
-    const [showButton, setShowButton] = useState(true);
 
     const navigate = useNavigate();
     const {getToken} = useAuth();
+
+    const {page, size, setShowMoreButton, showMoreButton, handleNextPage} = usePagination();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -22,16 +22,12 @@ const SetPage = () => {
 
             if (serverResponseGetSets) {
                 setSets([...sets, ...serverResponseGetSets.setDtoList]);
-                setShowButton(serverResponseGetSets.isLastPage);
+                setShowMoreButton(serverResponseGetSets.isLastPage);
             }
         }
         fetchData()
     }, [page])
 
-    const handleNextPage = (e) => {
-        e.preventDefault();
-        setPage(prevState => prevState + 1);
-    }
 
     const getTimeCategory = (createdAt) => {
         const now = new Date();
@@ -76,8 +72,8 @@ const SetPage = () => {
                 </div>
             ))}
 
-            <ButtonShowMore showButton={showButton} handleNextPage={handleNextPage}/>
+            <ButtonShowMore showButton={showMoreButton} handleNextPage={handleNextPage}/>
         </Container>
     )
 }
-export default SetPage; 
+export default SetPage;

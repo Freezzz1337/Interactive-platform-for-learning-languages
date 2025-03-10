@@ -6,13 +6,12 @@ import {FaRegFolderOpen} from "react-icons/fa";
 import "./folder-page.css";
 import {useNavigate} from "react-router-dom";
 import ButtonShowMore from "../../../components/button-components/button-show-more";
+import usePagination from "../../../hooks/usePagination";
 
 const FolderPage = () => {
+    const {page, size, setShowMoreButton, showMoreButton, handleNextPage} = usePagination();
 
     const [folders, setFolders] = useState([]);
-    const [page, setPage] = useState(0);
-    const [size, setSize] = useState(1);
-    const [showButton, setShowButton] = useState(true);
     const navigate = useNavigate();
 
     const {getToken} = useAuth();
@@ -23,17 +22,11 @@ const FolderPage = () => {
 
             if (serverResponse) {
                 setFolders([...folders, ...serverResponse.folders]);
-                setShowButton(serverResponse.isLastPage);
+                setShowMoreButton(serverResponse.isLastPage);
             }
         }
         fetchData();
     }, [page]);
-
-
-    const handleNextPage = (e) => {
-        e.preventDefault();
-        setPage(prevState => prevState + 1);
-    }
 
     const handleFolderPage = (e,folderId) => {
         e.preventDefault();
@@ -57,7 +50,7 @@ const FolderPage = () => {
                 </Row>
             ))}
 
-            <ButtonShowMore showButton={showButton} handleNextPage={handleNextPage}/>
+            <ButtonShowMore showButton={showMoreButton} handleNextPage={handleNextPage}/>
         </Container>
     );
 }
