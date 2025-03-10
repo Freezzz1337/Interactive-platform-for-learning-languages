@@ -33,8 +33,8 @@ public class Set {
     @Column(name = "created_at")
     private Timestamp createdAt;
 
-    @Column(name = "update_at")
-    private Timestamp updateAt;
+    @Column(name = "updated_at")
+    private Timestamp updatedAt;
 
     @Column(name = "folder_id")
     private Long folderId;

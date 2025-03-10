@@ -1,0 +1,11 @@
+.button-add-folder-folder-detail-page-container {
+    width: 100%;
+
+}
+
+.button-add-folder-folder-detail-page-container .btn {
+    font-size: 25px;
+    border: none;
+    color: black;
+    border-radius: 35px;
+}

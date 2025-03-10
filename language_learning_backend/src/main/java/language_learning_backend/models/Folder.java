@@ -24,10 +24,14 @@ public class Folder {
     private String name;
 
     @CreationTimestamp
-    @Column(name = "create_at")
-    private Timestamp createAt;
+    @Column(name = "created_at")
+    private Timestamp createdAt;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "folder_id")
     private List<Set> setList;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

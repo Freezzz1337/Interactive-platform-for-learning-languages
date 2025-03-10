@@ -1,7 +1,7 @@
 import {Button, Form, Modal, ModalFooter} from "react-bootstrap";
 import {useState} from "react";
-import {createFolder} from "../../services/folder-service";
-import useAuth from "../../hooks/useAuth";
+import {createFolder} from "../../../services/folder-service";
+import useAuth from "../../../hooks/useAuth";
 
 const WindowCreateFolder = ({show, handleClose}) => {
 

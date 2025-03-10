@@ -2,6 +2,7 @@ package language_learning_backend.controllers;
 
 import language_learning_backend.dto.auth.setDto.CreateSetDto;
 import language_learning_backend.dto.auth.setDto.GetListSetDTO;
+import language_learning_backend.dto.auth.setDto.SetDto;
 import language_learning_backend.models.Set;
 import language_learning_backend.services.SetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,14 @@ public class SetController {
             @RequestParam(defaultValue = "10") int size
     ) {
         return ResponseEntity.ok(setService.getSets(page, size));
+    }
+
+    @GetMapping("/getAllByFolder/{id}")
+    public ResponseEntity<List<SetDto>> getSetsByFolder(
+            @PathVariable Long id,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "0") int size
+    ) {
+        return ResponseEntity.ok(setService.getAllByFolder(id,page,size));
     }
 }

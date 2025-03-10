@@ -8,9 +8,9 @@ import useFormValidation from "../../hooks/useFormValidation";
 import Spinner from "../../components/spinner";
 import RegistrationForm from "../../components/forms/registration-form/registration-form";
 import AuthorizationForm from "../../components/forms/authorization-form";
-import ButtonAnim from "../../components/button-anim";
+import ButtonAnim from "../../components/button-components/button-anim";
 import {useLocation, useNavigate} from "react-router-dom";
-import ButtonGoBack from "../../components/button-go-back";
+import ButtonGoBack from "../../components/button-components/button-go-back";
 import AuthContext from "../../context/auth-context";
 
 

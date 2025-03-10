@@ -10,6 +10,8 @@ import Header from "./components/header";
 import Footer from "./components/footer";
 import SetDetailPage from "./pages/set-pages/set-detail-page";
 import SetPage from "./pages/set-pages/set-page";
+import FolderPage from "./pages/folder-pages/folder-page/folder-page";
+import FolderDetailPage from "./pages/folder-pages/folder-detail-page";
 
 const App = () => {
     const {isAuthenticated} = useContext(AuthContext);
@@ -28,6 +30,9 @@ const App = () => {
                         <Route path="/sets" element={<SetPage/>}/>
                         <Route path="/set/:id" element={<SetDetailPage/>}/>
                         <Route path="/createSet" element={<CreateSetPage/>}/>
+
+                        <Route path="/folders" element={<FolderPage/>}/>
+                        <Route path="/folder/:id" element={<FolderDetailPage/>}/>
                     </> :
                     <>
                         <Route path="/" element={<StartPage/>}/>

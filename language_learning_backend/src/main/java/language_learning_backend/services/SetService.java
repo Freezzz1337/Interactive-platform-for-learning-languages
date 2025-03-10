@@ -71,6 +71,21 @@ public class SetService {
                 .build();
     }
 
+    public List<SetDto> getAllByFolder(long folderId, int page, int size) {
+        PageRequest pageable = PageRequest.of(page, size);
+
+        return setRepository.findAllByFolderIdOrderByCreatedAtDesc(folderId, pageable).stream()
+                .sorted(Comparator.comparing(Set::getCreatedAt).reversed())
+                .map(set -> SetDto.builder()
+                        .id(set.getId())
+                        .setName(set.getName())
+                        .numberOfWords(set.getWordList().size())
+                        .nameOfCreator(set.getUser().getName())
+                        .createdAt(set.getCreatedAt())
+                        .build())
+                .toList();
+    }
+
     private boolean isLastPage(int page, int size) {
         long listsCount = setRepository.countAllByUser(getCurrentUser());
         long totalPages = (long) Math.ceil((double) listsCount / size);

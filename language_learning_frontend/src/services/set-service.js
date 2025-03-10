@@ -15,8 +15,13 @@ const getSets = (page, size, token) => {
         .then(response => response.json());
 }
 
+const getSetsByFolder = (folderId, page, size, token) => {
+    return fetch(`${_api}set/getAllByFolder/${folderId}?page=${page}&size=${size}`, _requestOptionsGET(token))
+        .then(response => response.json());
+}
 export {
     createSet,
     getSet,
-    getSets
+    getSets,
+    getSetsByFolder,
 }

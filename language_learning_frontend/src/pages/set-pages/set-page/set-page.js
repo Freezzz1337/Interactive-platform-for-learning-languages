@@ -1,11 +1,11 @@
-import {Button, Col, Container, Row} from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {getSets} from "../../../services/set-service";
 import useAuth from "../../../hooks/useAuth";
 import SetPreview from "../../../components/set-preview";
 import {useNavigate} from "react-router-dom";
-import {IoReloadOutline} from "react-icons/io5";
 import "./set-page.css";
+import ButtonShowMore from "../../../components/button-components/button-show-more";
 
 const SetPage = () => {
     const [sets, setSets] = useState([]);
@@ -23,7 +23,6 @@ const SetPage = () => {
             if (serverResponseGetSets) {
                 setSets([...sets, ...serverResponseGetSets.setDtoList]);
                 setShowButton(serverResponseGetSets.isLastPage);
-                console.log(serverResponseGetSets);
             }
         }
         fetchData()
@@ -76,14 +75,8 @@ const SetPage = () => {
                     </Row>
                 </div>
             ))}
-            <div className="button-set-page-container d-flex justify-content-center mt-3 mb-3">
-                <Button hidden={showButton}
-                        variant="outline-warning"
-                        onClick={handleNextPage}>
-                    <IoReloadOutline size={"50px"}/>&nbsp;&nbsp;Show more
-                </Button>
-            </div>
 
+            <ButtonShowMore showButton={showButton} handleNextPage={handleNextPage}/>
         </Container>
     )
 }

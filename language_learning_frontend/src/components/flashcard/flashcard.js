@@ -4,7 +4,7 @@ import {Button} from "react-bootstrap";
 import {IoReload} from "react-icons/io5";
 import {GrLinkNext, GrLinkPrevious} from "react-icons/gr";
 import {HiDotsHorizontal} from "react-icons/hi";
-import WindowMenu from "../window-menu";
+import WindowMenu from "../window-components/window-menu";
 
 const Flashcard = ({wordList}) => {
     let [indexCurrentWord, setIndexCurrentWord] = useState(0);

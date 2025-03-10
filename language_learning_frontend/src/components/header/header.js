@@ -4,7 +4,7 @@ import React, {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import AuthContext from "../../context/auth-context";
 import useAuth from "../../hooks/useAuth";
-import WindowCreateFolder from "../window-create-folder";
+import WindowCreateFolder from "../window-components/window-create-folder";
 
 const Header = () => {
     const navigation = useNavigate();
@@ -49,6 +49,10 @@ const Header = () => {
         navigation("/sets");
     }
 
+    const handleFolderPage = (e) => {
+        e.preventDefault();
+        navigation("/folders");
+    }
     return (
         <>
             <Navbar expand="lg" style={{backgroundColor: "#fbf6ef"}} className=" border-bottom">
@@ -62,7 +66,7 @@ const Header = () => {
 
                                 <NavDropdown title="My library">
                                     <NavDropdown.Item onClick={handleSetPage}>Sets</NavDropdown.Item>
-                                    <NavDropdown.Item>Folders</NavDropdown.Item>
+                                    <NavDropdown.Item onClick={handleFolderPage}>Folders</NavDropdown.Item>
                                 </NavDropdown>
 
                                 <NavDropdown title="Create">

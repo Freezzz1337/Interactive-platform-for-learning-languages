@@ -13,4 +13,5 @@ public interface SetRepository extends JpaRepository<Set, Long> {
 
     List<Set> findAllByUserOrderByCreatedAtDesc(User user, Pageable pageable);
     long countAllByUser(User user);
+    List<Set> findAllByFolderIdOrderByCreatedAtDesc(long folderId, Pageable pageable);
 }

@@ -29,9 +29,9 @@ public class Word {
     private long setId;
 
     @CreationTimestamp
-    @Column(name = "create_at")
-    private Timestamp createAt;
+    @Column(name = "created_at")
+    private Timestamp createdAt;
 
-    @Column(name = "update_at")
-    private Timestamp updateAt;
+    @Column(name = "updated_at")
+    private Timestamp updatedAt;
 }
