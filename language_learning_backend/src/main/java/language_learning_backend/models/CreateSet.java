@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -14,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Table(name = "create_set")
-public class Set {
+public class CreateSet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "set_id")
@@ -36,9 +37,6 @@ public class Set {
     @Column(name = "updated_at")
     private Timestamp updatedAt;
 
-    @Column(name = "folder_id")
-    private Long folderId;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -46,5 +44,12 @@ public class Set {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "set_id")
     private List<Word> wordList;
+
+    @ManyToMany
+    @JoinTable(
+            name = "set_folder",
+            joinColumns = @JoinColumn(name = "set_id"),
+            inverseJoinColumns = @JoinColumn(name = "folder_id"))
+    private Set<Folder> folders;
 }
 
