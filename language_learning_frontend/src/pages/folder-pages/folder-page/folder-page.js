@@ -7,12 +7,14 @@ import "./folder-page.css";
 import {useNavigate} from "react-router-dom";
 import ButtonShowMore from "../../../components/button-components/button-show-more";
 import usePagination from "../../../hooks/usePagination";
+import {useFolderContext} from "../../../context/folder-context";
 
 const FolderPage = () => {
     const {page, size, setShowMoreButton, showMoreButton, handleNextPage} = usePagination();
 
     const [folders, setFolders] = useState([]);
     const navigate = useNavigate();
+    const {folderReload} = useFolderContext();
 
     const {getToken} = useAuth();
 
@@ -20,15 +22,17 @@ const FolderPage = () => {
         const fetchData = async () => {
             const serverResponse = await getFolders(page, size, getToken());
 
+            console.log(serverResponse);
+
             if (serverResponse) {
-                setFolders([...folders, ...serverResponse.folders]);
+                setFolders(page === 0 ? serverResponse.folders : [...folders, ...serverResponse.folders]);
                 setShowMoreButton(serverResponse.isLastPage);
             }
         }
         fetchData();
-    }, [page]);
+    }, [page, folderReload]);
 
-    const handleFolderPage = (e,folderId) => {
+    const handleFolderPage = (e, folderId) => {
         e.preventDefault();
 
         navigate(`/folder/${folderId}`);
@@ -39,9 +43,11 @@ const FolderPage = () => {
             <h2 className="mt-3">Folders: </h2>
             <hr/>
             {folders.map((folder, index) => (
-                <Row key={index} className="folder-page mt-4" onClick={(e) => handleFolderPage(e,folder.id)}>
+                <Row key={index} className="folder-page mt-4" onClick={(e) => handleFolderPage(e, folder.id)}>
                     <Col xs={12} className="first-block mt-2 ">
-                        10 items
+                        {folder.numberOfItems && folder.numberOfItems > 0
+                            ? folder.numberOfItems
+                            : 0} items
                     </Col>
                     <Col xs={12} className="d-flex align-items-center">
                         <FaRegFolderOpen className="mb-2" size={"25px"}/>&nbsp;&nbsp;

@@ -27,6 +27,7 @@ const CreateSetPage = () => {
 
         setFormData((prevState) => ({
             ...prevState,
+            description: "",
             words: [...(prevState.words || []), {id: uuidv4(), wordSource: "", wordTarget: ""}]
         }));
     }
@@ -45,13 +46,14 @@ const CreateSetPage = () => {
 
         if (isValid) {
             try {
-                const response = await createSet(JSON.stringify(formData), getToken());
+                console.log(formData);
+                console.log(normalizeFormData());
+                const response = await createSet(JSON.stringify(normalizeFormData()), getToken());
                 const {dataset} = e.target;
 
                 if (dataset.type === "create") {
                     navigate("/home");
                 } else if (dataset.type === "create-and-practice") {
-                    console.log(response);
                     navigate(`/set/${response}`);
                 }
             } catch (error) {
@@ -60,6 +62,22 @@ const CreateSetPage = () => {
             }
         }
     }
+
+
+    const normalizeFormData = () => {
+        const normalizeData = formData.words.filter(e => e.wordSource || e.wordTarget)
+            .map(a => ({
+                ...a,
+                wordSource: a.wordSource || "...",
+                wordTarget: a.wordTarget || "...",
+            }));
+
+        return {
+            ...formData,
+            words: normalizeData
+        }
+    }
+
 
     return (
         <Container>
@@ -72,9 +90,9 @@ const CreateSetPage = () => {
                                   type="text"
                                   className={`${validErrors.email ? 'is-invalid' : ''}`}
                                   placeholder="Write a title"/>
-                        {validErrors.name &&
-                            <Form.Control.Feedback style={{display:"block"}}
-                                type="invalid">{validErrors.name}</Form.Control.Feedback>}
+                    {validErrors.name &&
+                        <Form.Control.Feedback style={{display: "block"}}
+                                               type="invalid">{validErrors.name}</Form.Control.Feedback>}
                 </Form.Group>
                 <Form.Group>
                     <Form.Label className="h4">Description</Form.Label>
@@ -133,6 +151,6 @@ const CreateSetPage = () => {
                 </div>
             }
         </Container>
-);
+    );
 }
 export default CreateSetPage;

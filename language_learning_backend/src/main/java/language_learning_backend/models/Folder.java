@@ -5,7 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -27,11 +27,10 @@ public class Folder {
     @Column(name = "created_at")
     private Timestamp createdAt;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "folder_id")
-    private List<Set> setList;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToMany(mappedBy = "folders", cascade = CascadeType.ALL)
+    private Set<CreateSet> sets;
 }

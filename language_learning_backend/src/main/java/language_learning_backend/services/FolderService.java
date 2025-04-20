@@ -1,6 +1,7 @@
 package language_learning_backend.services;
 
 import language_learning_backend.dto.auth.folderDto.CreateFolderDto;
+import language_learning_backend.dto.auth.folderDto.EditFolderNameDto;
 import language_learning_backend.dto.auth.folderDto.FolderDto;
 import language_learning_backend.dto.auth.folderDto.GetListFolderDto;
 import language_learning_backend.models.Folder;
@@ -30,6 +31,7 @@ public class FolderService {
     public void createFolder(CreateFolderDto createFolderDto) {
         Folder newFolder = Folder.builder()
                 .name(createFolderDto.getFolderName())
+                .user(getCurrentUser())
                 .build();
 
         folderRepository.save(newFolder);
@@ -44,6 +46,7 @@ public class FolderService {
                 .map(folder -> FolderDto.builder()
                         .id(folder.getId())
                         .name(folder.getName())
+                        .numberOfItems(folder.getSets().size())
                         .build())
                 .toList();
 
@@ -53,15 +56,41 @@ public class FolderService {
                 .build();
     }
 
+    public String getFolderNameById(long folderId) {
+        return folderRepository.findById(folderId).get().getName();
+    }
+
+    @Transactional
+    public void editFolderName(EditFolderNameDto editFolderNameDto) {
+        Folder folder = folderRepository.findFolderById(editFolderNameDto.getFolderId());
+
+        if (editFolderNameDto.getFolderName() != null)
+            folder.setName(editFolderNameDto.getFolderName());
+
+        folderRepository.save(folder);
+    }
+
+    @Transactional
+    public void deleteFolder(long folderId) {
+        folderRepository.deleteFolderAssociation(folderId);
+        folderRepository.deleteById(folderId);
+    }
+
+    @Transactional
+    public void deleteSetFromFolder(long folderId, long setId) {
+        folderRepository.deleteSetFromFolder(folderId, setId);
+    }
+
     private boolean isLastPage(int page, int size) {
         long listsCount = folderRepository.countAllByUser(getCurrentUser());
         long totalPages = (long) Math.ceil((double) listsCount / size);
         return page + 1 >= totalPages;
     }
 
-
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return (User) authentication.getPrincipal();
     }
+
+
 }

@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 public class CreateSetDto {
     private String name;
-    private String description;
+        private String description;
     @JsonProperty("isVisible")
     private boolean isVisible;
     List<CreateWordDto> words;

@@ -1,67 +1,100 @@
-import {useParams} from "react-router-dom";
-import {Button, Col, Container, Row} from "react-bootstrap";
+import {useNavigate, useParams} from "react-router-dom";
+import {Container} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import useAuth from "../../../hooks/useAuth";
 import {getSetsByFolder} from "../../../services/set-service";
 import ButtonShowMore from "../../../components/button-components/button-show-more";
-import {FiPlusCircle} from "react-icons/fi";
 import "./folder-detail-page.css";
-import WindowAddSetsToFolder from "../../../components/window-components/window-add-sets-to-folder";
 import usePagination from "../../../hooks/usePagination";
+import SetPreview from "../../../components/set-preview";
+import Spinner from "../../../components/spinner";
+import HeaderFolder from "../../../components/header-folder";
+import {deleteSetFromFolder} from "../../../services/folder-service";
 
 const FolderDetailPage = () => {
     const {id} = useParams();
     const {getToken} = useAuth();
-    const {page, size, setShowMoreButton, showMoreButton, handleNextPage} = usePagination();
+    const {page, size, setShowMoreButton, showMoreButton, handleNextPage} = usePagination(0,2);
+    const navigate = useNavigate();
 
     const [sets, setSets] = useState([]);
-    const [showModal, setShowModal] = useState(false);
+    const [folderName, setFolderName] = useState("");
+
+    const [showSpinner, setShowSpinner] = useState(true);
+    const [dataTriggerReload, setDataTriggerReload] = useState(false);
+
 
     useEffect(() => {
         const fetchData = async () => {
             const serverResponse = await getSetsByFolder(id, page, size, getToken());
             if (serverResponse) {
-                // setSets(prevSets => [...prevSets, ...serverResponse]);
-                // setShowMoreButton(serverResponseGetSets.isLastPage); implement this one later !!!!!!!
+                setShowSpinner(false);
+
+                setSets(prevState => (page === 0 ? serverResponse.sets : [...prevState, ...serverResponse.sets]));
+                setFolderName(serverResponse.folderName);
+                setShowMoreButton(serverResponse.isLastPage);
             }
+            console.log(serverResponse);
+
         }
 
-
         fetchData();
-    }, [id]);
+    }, [id, page, dataTriggerReload]);
 
-    const handleClose = () => {
-        setShowModal(false);
+    const handleSetDetails = (id, event) => {
+        event.preventDefault();
+        navigate(`/set/${id}`)
+    }
+    const handleDataTriggerReload = () => {
+        setDataTriggerReload(!dataTriggerReload);
     }
 
-    const handleShowModal = () => {
-        setShowModal(true);
+    const handleDeleteSetFromFolder = async (e, setId) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+
+        const serverResponse = await deleteSetFromFolder(id, setId, getToken());
+        if (serverResponse) {
+            handleDataTriggerReload();
+        }
+
     }
 
     return (
-        <Container>
+        <Container style={{position: "relative"}}>
+            <Spinner isLoading={showSpinner} positionAbsolute={true} size={"100px"} overlay={true}/>
+
+            <div className="mt-5">
+                <HeaderFolder
+                    folderName={folderName}
+                    folderId={id}
+                    token={getToken()}
+                    dataTriggerReload={handleDataTriggerReload}
+                />
+            </div>
+
             {
                 sets.length === 0 ? (
-                    <Row>
-                        <Col className="text-center mt-5">
-                            <h2>The folder is empty</h2>
-                            <div className="button-add-folder-folder-detail-page-container">
-                                <Button
-                                    variant="outline-warning"
-                                    onClick={handleShowModal}
-                                >
-                                    Add items <FiPlusCircle className="mb-1"/>
-                                </Button>
-                            </div>
-                        </Col>
-                    </Row>
+
+                    <h2 className="text-center mt-5">The folder is empty</h2>
+
                 ) : (
-                    <h2>TEST2</h2>
+                    <div className="mt-5">
+                        {sets.map((set, index) => (
+                            <div className="mt-3" key={index}
+                                 onClick={(event) => handleSetDetails(set.id, event)}>
+                                <SetPreview set={set}
+                                            showFolderDetailIcons={true}
+                                            handleDeleteSetFromFolder={handleDeleteSetFromFolder}
+                                />
+                            </div>
+                        ))}
+                    </div>
                 )
             }
-
-            <WindowAddSetsToFolder show={showModal} handleClose={handleClose} />
             <ButtonShowMore showButton={showMoreButton} handleNextPage={handleNextPage}/>
+
         </Container>
     );
 }

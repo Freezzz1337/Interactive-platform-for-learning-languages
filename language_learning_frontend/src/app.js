@@ -18,10 +18,9 @@ const App = () => {
     const location = useLocation();
     const hideHeaderAndFooter = "/useAuth".includes(location.pathname);
 
-
     return (
         <>
-            {!hideHeaderAndFooter && <Header/>}
+            {!hideHeaderAndFooter && <Header />}
             <Routes>
                 {isAuthenticated ?
                     <>
@@ -31,7 +30,7 @@ const App = () => {
                         <Route path="/set/:id" element={<SetDetailPage/>}/>
                         <Route path="/createSet" element={<CreateSetPage/>}/>
 
-                        <Route path="/folders" element={<FolderPage/>}/>
+                        <Route path="/folders" element={<FolderPage />}/>
                         <Route path="/folder/:id" element={<FolderDetailPage/>}/>
                     </> :
                     <>

@@ -64,8 +64,8 @@ const SetPage = () => {
                     <hr/>
                     <Row className="mt-0">
                         {groupedSets[category].map((set, index) => (
-                            <Col xs={12} key={index}>
-                                <SetPreview set={set} handleSetDetails={handleSetDetails}/>
+                            <Col xs={12} key={index} onClick={(event)=>handleSetDetails(set.id,event)}>
+                                <SetPreview set={set} />
                             </Col>
                         ))}
                     </Row>

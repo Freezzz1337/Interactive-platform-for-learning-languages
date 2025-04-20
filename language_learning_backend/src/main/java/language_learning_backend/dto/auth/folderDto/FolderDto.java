@@ -10,4 +10,5 @@ import lombok.Setter;
 public class FolderDto {
     private long id;
     private String name ;
+    private int numberOfItems;
 }

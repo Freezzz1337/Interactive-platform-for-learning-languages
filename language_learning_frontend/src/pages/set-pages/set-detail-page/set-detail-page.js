@@ -17,7 +17,6 @@ const SetDetailPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             const serverResponseGetSet = await getSet(id, getToken());
-
             if (serverResponseGetSet) {
                 setCurrentSet(serverResponseGetSet);
                 setWordList(serverResponseGetSet.wordList);
@@ -28,7 +27,7 @@ const SetDetailPage = () => {
     }, []);
 
     return (
-        <Container fluid>
+        <Container fluid >
             {
                 !currentSet ? (<Spinner positionAbsolute={true} overlay={true} size={"5rem"}/>) : (
                     <>

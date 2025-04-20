@@ -1,9 +1,7 @@
-import {Button, Container, Form, InputGroup, Nav, Navbar, NavDropdown} from "react-bootstrap";
-import {BiSearch} from "react-icons/bi";
-import React, {useContext, useEffect, useState} from "react";
+import {Button, Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
+import React, {useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import AuthContext from "../../context/auth-context";
-import useAuth from "../../hooks/useAuth";
 import WindowCreateFolder from "../window-components/window-create-folder";
 
 const Header = () => {
@@ -83,7 +81,6 @@ const Header = () => {
                             </Nav>
                         </div>
 
-
                         <div className="text-center mt-2 mt-lg-0">
                             {isAuthenticated ?
                                 <Button variant="outline-dark" className="me-2" onClick={handleLogOut}>Log
@@ -96,13 +93,14 @@ const Header = () => {
                                 </>
                             }
 
-
                         </div>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
 
-            <WindowCreateFolder show={showCreateFolder} handleClose={handleCloseCreateFolder}/>
+            <WindowCreateFolder show={showCreateFolder}
+                                handleClose={handleCloseCreateFolder}
+            />
         </>
     );
 }

@@ -1,12 +1,17 @@
 import {Button, Form, Modal, ModalFooter} from "react-bootstrap";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {createFolder} from "../../../services/folder-service";
 import useAuth from "../../../hooks/useAuth";
+import {useLocation, useNavigate} from "react-router-dom";
+import {useFolderContext} from "../../../context/folder-context";
 
 const WindowCreateFolder = ({show, handleClose}) => {
 
     const {getToken} = useAuth();
     const [folderName, setFolderName] = useState({});
+    const navigate = useNavigate();
+    const location = useLocation();
+    const {triggerReload} = useFolderContext();
 
     const handleChange = (e) => {
         e.preventDefault();
@@ -17,14 +22,26 @@ const WindowCreateFolder = ({show, handleClose}) => {
         e.preventDefault();
 
         try {
-            console.log(folderName);
             const serverResponse = await createFolder(JSON.stringify(folderName), getToken());
             console.log("Folder created successfully:", serverResponse.message);
+
+            if (location.pathname === "/folders") {
+                triggerReload();
+            } else {
+                navigate("/folders");
+            }
+
             handleClose();
         } catch (error) {
             console.error("Error creating folder:", error);
         }
     }
+
+    useEffect(() => {
+        if (!show) {
+            setFolderName({});
+        }
+    }, [show])
 
     return (
         <Modal
@@ -36,7 +53,7 @@ const WindowCreateFolder = ({show, handleClose}) => {
                 <Modal.Title>Create a folder</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form>
+                <Form onSubmit={handleSubmit}>
                     <Form.Group>
                         <Form.Control onChange={handleChange}
                                       type="text"
@@ -46,11 +63,11 @@ const WindowCreateFolder = ({show, handleClose}) => {
                 </Form>
             </Modal.Body>
             <ModalFooter>
-
                 <Button type="button"
                         variant="warning"
-                        active={folderName.length < 1}
-                        onClick={handleSubmit}>Create</Button>
+                        disabled={!folderName.folderName}
+                        onClick={handleSubmit}
+                >Create</Button>
             </ModalFooter>
         </Modal>
     );

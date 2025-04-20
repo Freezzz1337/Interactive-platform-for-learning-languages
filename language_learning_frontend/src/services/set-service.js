@@ -19,9 +19,22 @@ const getSetsByFolder = (folderId, page, size, token) => {
     return fetch(`${_api}set/getAllByFolder/${folderId}?page=${page}&size=${size}`, _requestOptionsGET(token))
         .then(response => response.json());
 }
+
+const getSetsByFolderNotInFolder = (folderId, page, size, token) => {
+    return fetch(`${_api}set/getAllNotInFolder/${folderId}?page=${page}&size=${size}`, _requestOptionsGET(token))
+        .then(response => response.json());
+}
+
+const addSetsToFolder = (formData, token) => {
+    return fetch(`${_api}set/addSetsToFolder`, _requestOptionsPost(formData, token))
+        .then(response => response.json());
+}
+
 export {
     createSet,
     getSet,
     getSets,
     getSetsByFolder,
+    getSetsByFolderNotInFolder,
+    addSetsToFolder,
 }
